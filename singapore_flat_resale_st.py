@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 from streamlit_option_menu import option_menu
 import joblib
-from sklearn.preprocessing import StandardScaler
 import base64
 
 st.set_page_config(layout = "wide")
@@ -63,11 +62,11 @@ if selection == 'Prediction':
      df_features['month']=pd.to_datetime(df_features['month'])
      Year = int(st.number_input('year'))
      Floor_area_sqm = int(st.number_input("floor_area_sqm"))
-     Remaining_lease = int(st.number_input("remaining_lease"))
+     Remaining_lease = Remaining_lease = int(st.selectbox("remaining_lease", (i for i in range(1, 100)))) 
      Flat_type = st.selectbox("flat_type",df_features['flat_type'].unique())
      Mid_storey = st.selectbox("mid_storey",set(df_features['mid_storey'].unique()))
      Town = st.selectbox("town",df_features['town'].unique())
-                
+               
      Resale_prediction = {
                          "town": Town, 
                          "flat_type":  Flat_type,
