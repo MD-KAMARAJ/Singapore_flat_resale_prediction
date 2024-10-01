@@ -1,0 +1,2 @@
+# Singapore_flat_resale_prediction
+Machine Learning Project
