@@ -21,7 +21,7 @@ with st.sidebar:
 
 if selection == 'Home':
      
-     with open(r"C:\\Users\\HP USER\\Documents\\Guvi\\Project\\05_Singapore flat price\\singapore_pic.jpg", "rb") as image_file:
+     with open(r"D:\\GUVI_projects\\05_Singapore flat price\\singapore_pic.jpg", "rb") as image_file:
                image_bytes = image_file.read()
                encoded_image = base64.b64encode(image_bytes).decode()
 
@@ -29,9 +29,9 @@ if selection == 'Home':
 
      st.markdown('''<h5 style='color: white;'>This Singapore flat resale price prediction predicts the flat resale price if you have provided the sufficient inputs to this model</h5>''',unsafe_allow_html=True)
      st.markdown('''<h6 style='color: white;'>The inputs to be provided are as follows:</h6>''',unsafe_allow_html=True)
-     st.markdown('''<h3 style='color: white;'>Year</h3>''',unsafe_allow_html=True)
+     st.markdown('''<h3 style='color: white;text-decoration: underline;'>Year</h3>''',unsafe_allow_html=True)
      st.markdown('''<h5 style='color: white;'>This year refers to the year on which the resale price is predicted</h5>''',unsafe_allow_html=True)
-     st.markdown('''<h3 style='color: white;'>Flat Type:</h3>''',unsafe_allow_html=True)
+     st.markdown('''<h3 style='color: white;text-decoration: underline;'>Flat Type:</h3>''',unsafe_allow_html=True)
      st.markdown('''<h5 style='color: white;'>This flat type indicated whether the flat is, 1 Room, 2 Rooms, 3 Rooms, 4 Rooms, 5 Rooms, Executive and Multi-Generation. 
                  These types are mapped to numbers</h5>''',unsafe_allow_html=True)
      st.markdown('''<h6 style='color: white;'>1 Room - 1,</h6>''',unsafe_allow_html=True)
@@ -41,31 +41,43 @@ if selection == 'Home':
      st.markdown('''<h6 style='color: white;'>5 Rooms - 5,</h6>''',unsafe_allow_html=True)
      st.markdown('''<h6 style='color: white;'>Executive - 6 and</h6>''',unsafe_allow_html=True)
      st.markdown('''<h6 style='color: white;'>Multi-Generation - 7</h6>''',unsafe_allow_html=True)
-     st.markdown('''<h3 style='color: white;'>Town:</h3>''',unsafe_allow_html=True)
+     st.markdown('''<h3 style='color: white;text-decoration: underline;'>Town:</h3>''',unsafe_allow_html=True)
      st.markdown('''<h5 style='color: white;'>This feature tells about the town in which flat is located, as location also makes an effect in the resale price of flat.
                This feature is also mapped to numbers from 1 to 27</h5>''',unsafe_allow_html=True)
-     st.markdown('''<h3 style='color: white;'>Floor area square metre:</h3>''',unsafe_allow_html=True)
+     st.markdown('''<h3 style='color: white;text-decoration: underline;'>Floor area square metre:</h3>''',unsafe_allow_html=True)
      st.markdown('''<h5 style='color: white;'>This feature tells about the floor area of the flat as area is the most important feature for the fixation of resale price of the flat</h5>''',unsafe_allow_html=True)
-     st.markdown('''<h3 style='color: white;'>Remaining Lease:</h3>''',unsafe_allow_html=True)
+     st.markdown('''<h3 style='color: white;text-decoration: underline;'>Remaining Lease:</h3>''',unsafe_allow_html=True)
      st.markdown('''<h5 style='color: white;'>This feature gives the information about the lease year remaining for that flat, as in Singapore HDB (Housing Development Board) regualtes flats.
               The maximum lease year for a flat is 99 years. This feature tells the remaining year left over from 99 years</h5>''',unsafe_allow_html=True)
-     st.markdown('''<h3 style='color: white;'>Mid Storey:</h3>''',unsafe_allow_html=True)
+     st.markdown('''<h3 style='color: white;text-decoration: underline;'>Mid Storey:</h3>''',unsafe_allow_html=True)
      st.markdown('''<h5 style='color: white;'>This features tells us about the number floors that the flat has, normally it is shown in range format, then from that range the number of floor is arrived</h5>''',unsafe_allow_html=True)
 
 
 
 if selection == 'Prediction':
+
+     with open(r"D:\\GUVI_projects\\05_Singapore flat price\\analysis.jpg", "rb") as pic_file:
+               pic_bytes = pic_file.read()
+               encoded_pic = base64.b64encode(pic_bytes).decode()
+
+     set_bg_hack(encoded_pic)
+
      col1,col2 = st.columns(2)
-     col1.markdown("## Features")
      df_features = pd.read_csv ("singapore_flat_resale_combined.csv")
      df_features['flat_type']=df_features['flat_type'].str.replace('-', ' ')
      df_features['month']=pd.to_datetime(df_features['month'])
-     Year = int(st.number_input('year'))
-     Floor_area_sqm = int(st.number_input("floor_area_sqm"))
-     Remaining_lease = Remaining_lease = int(st.selectbox("remaining_lease", (i for i in range(1, 100)))) 
-     Flat_type = st.selectbox("flat_type",df_features['flat_type'].unique())
-     Mid_storey = st.selectbox("mid_storey",set(df_features['mid_storey'].unique()))
-     Town = st.selectbox("town",df_features['town'].unique())
+     st.markdown('''<h5 style='color: white;'>Year</h5>''', unsafe_allow_html=True)
+     Year = int(st.number_input('Enter year'))
+     st.markdown('''<h5 style='color: white;'>Floor area sqm</h5>''', unsafe_allow_html=True)
+     Floor_area_sqm = int(st.number_input("Enter floor_area_sqm"))
+     st.markdown('''<h5 style='color: white;'>Remaining Lease</h5>''', unsafe_allow_html=True)
+     Remaining_lease = Remaining_lease = int(st.selectbox("Enter remaining_lease", (i for i in range(1, 100))))
+     st.markdown('''<h5 style='color: white;'>Flat Type</h5>''', unsafe_allow_html=True) 
+     Flat_type = st.selectbox("Enter flat_type",df_features['flat_type'].unique())
+     st.markdown('''<h5 style='color: white;'>Mid Storey</h5>''', unsafe_allow_html=True)
+     Mid_storey = st.selectbox("Enter mid_storey",set(df_features['mid_storey'].unique()))
+     st.markdown('''<h5 style='color: white;'>Town</h5>''', unsafe_allow_html=True)
+     Town = st.selectbox("Enter town",df_features['town'].unique())
                
      Resale_prediction = {
                          "town": Town, 
@@ -101,7 +113,7 @@ if selection == 'Prediction':
      scaler_target=data['scaler_target']
      df2_resale=df1_resale[selected_features_AS]
      
-     col2.subheader("Resale Flat Price Prediction")
+     col2.markdown('''<h3 style='color: white;'>Resale Flat Price Prediction</h3>''', unsafe_allow_html=True)
      
      if np.isinf(df2_resale).values.any():
           col2.container(border=True).markdown("***The input contains infinite values. Please provide valid input values.***")    
